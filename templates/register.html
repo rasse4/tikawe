@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <link rel="stylesheet" href="/static/main.css">
+
+</head>
+
+<body>
+
+  <div class="header">
+        <h1>Rekisteröityminen</h1>
+    </div>
+
+<div class = "nav">
+       <nav>
+      <ul>
+        <li><a href="/">Etusivu</a></li>
+        <li><a href="/search">Haku</a></li>
+        <li><a href="/register">Luo tunnus</a></li>
+        {% if session.user_id %}
+        <li><a href="/logout">Kirjaudu ulos</a></li>
+        {% else %}
+        <li><a href="/login">Kirjaudu sisään</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    </div>
+
+  <form action="/create" method="post">
+    <p>
+      Tunnus: <br />
+      <input type="text" name="username" />
+    </p>
+    <p>
+      Salasana: <br />
+      <input type="password" name="password1" />
+    </p>
+    <p>
+      Salasana uudestaan: <br />
+      <input type="password" name="password2" />
+    </p>
+    <input type="submit" value="Luo tunnus" />
+  </form>
+</body>
+
+</html>
