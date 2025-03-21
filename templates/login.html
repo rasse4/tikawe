@@ -18,8 +18,13 @@
         <li><a href="/">Etusivu</a></li>
         <li><a href="/search">Haku</a></li>
         <li><a href="/register">Luo tunnus</a></li>
-        {% if session.user_id %}
+        {% if session.username %}
+        <li><a href="/ownpage">Omat sivut</a></li>
         <li><a href="/logout">Kirjaudu ulos</a></li>
+        <li><a href="/modify_star">Lisää tähtiä</a></li>
+
+        <li><a href="/modify">Muokkaa planeettoja</a></li>
+
         {% else %}
         <li><a href="/login">Kirjaudu sisään</a></li>
         {% endif %}

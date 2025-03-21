@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <link rel="stylesheet" href="/static/main.css">
+
+</head>
+
+<body>
+
+  <div class="header">
+        <h1>Muokkaa planeettoja</h1>
+    </div>
+
+<div class = "nav">
+       <nav>
+      <ul>
+        <li><a href="/">Etusivu</a></li>
+        <li><a href="/search">Haku</a></li>
+        <li><a href="/register">Luo tunnus</a></li>
+        {% if session.username %}
+        <li><a href="/modify">Muokkaa planeettoja</a></li>
+                  <li><a href="/modify_star">Lisää tähtiä</a></li>
+
+
+        <li><a href="/ownpage">Omat sivut</a></li>
+        <li><a href="/logout">Kirjaudu ulos</a></li>
+        {% else %}
+        <li><a href="/login">Kirjaudu sisään</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    </div>
+
+  <form action="/create_planet" method="post">
+    <p>
+      Lisää planeetta: <br />
+      <input type="text" name="planetname" />
+       <br />
+      Lisää kuvaus:
+      <br>
+      <input type="text" name="planetcontent" />
+    </p>
+      <p>
+
+        Planeetan tyypit: <br />
+      {% for type in types %}
+
+
+
+    <input type = "checkbox" name=planettypes> {{type[0]}}  <br>
+
+
+      {% endfor %}
+    </p>
+      <p>
+
+        Tähti: <br />
+
+          <select id="stars" name = "stars">
+      {% for star in stars %}
+
+
+
+              <option value = {{star[0]}} > {{star[0]}}  </option>
+
+
+      {% endfor %}
+              </select>
+    </p>
+      <p>
+      Löydetty: <br />
+      <input type="text" name="planetdate" />
+    </p>
+
+           Löytömetodi: <br />
+      {% for method in methods %}
+
+
+
+    <input type = "radio" name=method> {{method[0]}}  <br>
+
+
+      {% endfor %}
+
+
+
+    <input type="submit" value="Lisää" />
+  </form>
+</body>
+
+</html>

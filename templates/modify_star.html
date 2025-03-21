@@ -1,31 +1,26 @@
-
 <!DOCTYPE html>
 <html>
 
-
 <head>
-  <title>Keskustelu</title>
+        <link rel="stylesheet" href="/static/main.css">
 
 </head>
 
 <body>
 
-      <link rel="stylesheet" href="/static/main.css">
-
-
-    <div class="header">
-        <h1>Tietokanta</h1>
+  <div class="header">
+        <h1>Lisää tähti</h1>
     </div>
-    <div class = "nav">
+
+<div class = "nav">
        <nav>
       <ul>
-        <li><a href="/">Etusivu</a>
+        <li><a href="/">Etusivu</a></li>
         <li><a href="/search">Haku</a></li>
         <li><a href="/register">Luo tunnus</a></li>
         {% if session.username %}
-          <li><a href="/modify_star">Lisää tähtiä</a></li>
-
         <li><a href="/modify">Muokkaa planeettoja</a></li>
+          <li><a href="/modify_star">Lisää tähtiä</a></li>
 
         <li><a href="/ownpage">Omat sivut</a></li>
         <li><a href="/logout">Kirjaudu ulos</a></li>
@@ -36,15 +31,23 @@
     </nav>
     </div>
 
+  <form action="/create_star" method="post">
+    <p>
+      Lisää tähti: <br />
+      <input type="text" name="starname" />
+       <br />
+      Lisää kuvaus:
+      <br>
+      <input type="text" name="starcontent" />
+    </p>
 
-       <div class ="content">
-
-           ...
 
 
 
-       </div>
 
+
+    <input type="submit" value="Lisää" />
+  </form>
 </body>
 
 </html>

@@ -61,10 +61,13 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        sql = "SELECT password_hash FROM users WHERE username = ?"
-        password_hash = db.query(sql, [username])[0][0]
+        sql = "SELECT id, password_hash FROM users WHERE username = ?"
+        result = db.query(sql, [username])[0]
+        user_id = result["id"]
+        password_hash = result["password_hash"]
 
         if check_password_hash(password_hash, password):
+            session["user_id"] = user_id
             session["username"] = username
             return redirect("/")
         else:
@@ -73,5 +76,57 @@ def login():
 
 @app.route("/logout")
 def logout():
+    del session["user_id"]
     del session["username"]
     return redirect("/")
+
+@app.route("/modify_star")
+def modify_star():
+    return render_template("modify_star.html")
+
+@app.route("/create_star", methods=["GET", "POST"])
+def create_star():
+    star_name = request.form["starname"]
+    star_content = request.form["starcontent"]
+
+    sql = """INSERT INTO star (name, content) VALUES (?,?)"""
+    db.execute(sql, [star_name, star_content])
+    return redirect("/")
+
+
+@app.route("/modify", methods=["GET","POST"])
+def modify():
+    types = db.query("SELECT name FROM type")
+    stars = db.query("SELECT name FROM star")
+    methods = db.query("SELECT name FROM method")
+
+    return render_template("/modify.html", types=types, stars=stars, methods=methods)
+
+
+@app.route("/create_planet", methods=["GET", "POST"])
+def create_planet():
+    planet_name = request.form["planetname"]
+    planet_content = request.form["planetcontent"]
+    planet_types = request.form["planettypes"]
+    planet_star = request.form["planetstar"]
+    planet_date = request.form["planetdate"]
+    user_id = session["user_id"]
+
+    sql = "INSERT INTO planet (name, content, discovery, user_id) VALUES (?,?,?,?)"
+    db.execute(sql, [planet_name, planet_content, planet_date, user_id])
+
+    sql = ("SELECT id FROM star WHERE name = ?")
+    result = db.query(sql, [planet_star])
+    star_id = result[0]
+
+
+
+
+
+
+
+    return redirect("/")
+
+@app.route("/ownpage")
+def ownpage():
+    return render_template("ownpage.html")
